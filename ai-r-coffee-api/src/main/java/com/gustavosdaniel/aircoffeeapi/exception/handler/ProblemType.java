@@ -1,0 +1,35 @@
+package com.gustavosdaniel.aircoffeeapi.exception.handler;
+
+import java.net.URI;
+
+public enum ProblemType {
+
+    BUSINESS_RULE(
+
+            "urn:ai-r-coffee:regra-de-negocio",
+            "Violação de regra de negócio"
+    ),
+
+    VALIDATE_ERROR(
+
+            "urn:ai-r-coffee:erro-de-validacao",
+            "Validação falhou"
+    );
+
+    private final URI uri;
+
+    private final String title;
+
+    ProblemType(String uri, String title) {
+        this.uri = URI.create(uri);
+        this.title = title;
+    }
+
+    public URI getUri() {
+        return uri;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+}
