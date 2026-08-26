@@ -2,6 +2,7 @@ package com.gustavosdaniel.aircoffeeapi.domain.mapping;
 
 import com.gustavosdaniel.aircoffeeapi.domain.dto.request.ProductRequest;
 import com.gustavosdaniel.aircoffeeapi.domain.dto.response.ProductResponse;
+import com.gustavosdaniel.aircoffeeapi.domain.dto.response.ProductSummary;
 import com.gustavosdaniel.aircoffeeapi.domain.po.Category;
 import com.gustavosdaniel.aircoffeeapi.domain.po.Product;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,15 @@ public class ProductMapper {
                 product.getPrice(),
                 product.getImageUrl(),
                 product.getCategory().getId()
+        );
+    }
+
+    public ProductSummary toSummary(Product product) {
+
+        return new ProductSummary(
+                product.getId(),
+                product.getName(),
+                product.getImageUrl()
         );
     }
 }

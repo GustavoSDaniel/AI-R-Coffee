@@ -14,6 +14,21 @@ public enum ProblemType {
 
             "urn:ai-r-coffee:erro-de-validacao",
             "Validação falhou"
+    ),
+
+    NAME_EXIST(
+            "urn:ai-r-coffee:nome-existe",
+            "Nome já existente"
+    ),
+
+    CATEGORY_NOT_FOUND(
+            "urn:ai-r-coffee:category-not-found",
+            "Categoria não encontrada"
+    ),
+
+    PRODUCT_NOT_FOUND(
+            "urn:ai-r-coffee:product-not-found",
+            "Produto não encontrado"
     );
 
     private final URI uri;

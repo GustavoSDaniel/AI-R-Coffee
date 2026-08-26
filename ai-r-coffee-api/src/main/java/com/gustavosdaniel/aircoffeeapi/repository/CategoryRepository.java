@@ -34,4 +34,5 @@ public interface CategoryRepository extends JpaRepository<Category, UUID> {
         AND c.active = false
         """)
     List<Category> searchInactiveByName(@Param("name") String name);
+
 }

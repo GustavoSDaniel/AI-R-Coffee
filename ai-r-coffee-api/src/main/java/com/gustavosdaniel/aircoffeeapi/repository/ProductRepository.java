@@ -22,7 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
             WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%') ) 
             """
     )
-    List<Product> searchByName(@Param("name") String name);
+    Page<Product> searchByNameAll(@Param("name") String name, Pageable pageable);
 
     @Query("""
         SELECT p FROM Product p
@@ -40,7 +40,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     Page<Product> findAllByCategory(Category category, Pageable pageable);
     
-    Page<Product> findAllByActive(Pageable pageable);
-    
-    Page<Product> findAllBy(Pageable pageable);
+    Page<Product> findByActiveTrue(Pageable pageable);
+
 }
