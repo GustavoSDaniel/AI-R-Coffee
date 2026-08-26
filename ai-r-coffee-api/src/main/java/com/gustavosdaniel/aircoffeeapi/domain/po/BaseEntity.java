@@ -9,7 +9,7 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    public BaseEntity() {}
+    protected BaseEntity() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
