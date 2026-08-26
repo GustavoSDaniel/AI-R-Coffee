@@ -16,13 +16,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Categories", description = "Endpoints para gerenciamento de categorias de produtos")
-@SecurityRequirement(name = "bearerAuth")
 public interface CategoryOpenApi {
 
     @Operation(
@@ -31,6 +32,7 @@ public interface CategoryOpenApi {
             method = "POST",
             tags = {"Categories"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "201",
@@ -110,7 +112,7 @@ public interface CategoryOpenApi {
 
     @Operation(
             summary = "Listar todas as categorias (inclui inativas)",
-            description = "Retorna todas as categorias cadastradas, opcionalmente filtradas por nome (busca parcial, case-insensitive).",
+            description = "Retorna todas as categorias cadastradas, opcionalmente filtradas por nome (busca parcial, case-insensitive). Endpoint público.",
             method = "GET",
             tags = {"Categories"}
     )
@@ -140,9 +142,6 @@ public interface CategoryOpenApi {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "Parâmetro 'name' inválido (ex: muito longo)", content = @Content),
-            @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
-            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     ResponseEntity<List<CategoryResponse>> allCategoryByName(
@@ -159,7 +158,7 @@ public interface CategoryOpenApi {
 
     @Operation(
             summary = "Listar categorias ativas",
-            description = "Retorna somente categorias com status ativo, opcionalmente filtradas por nome.",
+            description = "Retorna somente categorias com status ativo, opcionalmente filtradas por nome. Endpoint público.",
             method = "GET",
             tags = {"Categories"}
     )
@@ -183,9 +182,6 @@ public interface CategoryOpenApi {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "Parâmetro 'name' inválido", content = @Content),
-            @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
-            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     ResponseEntity<List<CategoryResponse>> allCategoryByNameActive(
@@ -206,6 +202,7 @@ public interface CategoryOpenApi {
             method = "GET",
             tags = {"Categories"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -226,7 +223,6 @@ public interface CategoryOpenApi {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "Parâmetro 'name' inválido", content = @Content),
             @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
             @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
@@ -249,6 +245,7 @@ public interface CategoryOpenApi {
             method = "PATCH",
             tags = {"Categories"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",
@@ -300,6 +297,7 @@ public interface CategoryOpenApi {
             method = "PATCH",
             tags = {"Categories"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",

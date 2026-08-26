@@ -8,9 +8,6 @@ import java.util.UUID;
 
 public record ProductRequest(
 
-        @NotNull(message = "A categoria é obrigatória")
-        UUID categoryId,
-
         @NotBlank(message = "O nome do produto não pode estar vazio")
         String name,
 

@@ -22,13 +22,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Products", description = "Endpoints para gerenciamento de produtos")
-@SecurityRequirement(name = "bearerAuth")
 public interface ProductOpenApi {
 
     @Operation(
@@ -37,6 +38,7 @@ public interface ProductOpenApi {
             method = "POST",
             tags = {"Products"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "201",
@@ -118,11 +120,72 @@ public interface ProductOpenApi {
     );
 
     @Operation(
-            summary = "Listar todos os produtos",
+            summary = "Buscar produto por ID",
+            description = "Retorna um produto específico pelo seu ID. Endpoint público.",
+            method = "GET",
+            tags = {"Products"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Produto encontrado com sucesso",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProductResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Produto encontrado",
+                                    value = """
+                    {
+                        "id": "98765432-1234-5678-9012-345678901234",
+                        "name": "Café Expresso",
+                        "description": "Café curto e intenso",
+                        "price": 5.90,
+                        "active": true,
+                        "categoryId": "123e4567-e89b-12d3-a456-426614174000"
+                    }
+                    """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "ID inválido (formato UUID incorreto)", content = @Content),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Produto não encontrado",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            examples = @ExampleObject(
+                                    value = """
+                    {
+                        "timestamp": "2024-01-01T12:00:00Z",
+                        "status": 404,
+                        "error": "Not Found",
+                        "message": "Produto com ID 98765432-1234-5678-9012-345678901234 não encontrado",
+                        "path": "/api/v1/products/98765432-1234-5678-9012-345678901234"
+                    }
+                    """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+    })
+    ResponseEntity<ProductResponse> findProductById(
+            @Parameter(
+                    name = "id",
+                    description = "UUID do produto a ser buscado",
+                    in = ParameterIn.PATH,
+                    required = true,
+                    example = "98765432-1234-5678-9012-345678901234"
+            )
+            @PathVariable UUID id
+    );
+
+    @Operation(
+            summary = "Listar todos os produtos (inclui inativos)",
             description = "Retorna uma página de produtos, opcionalmente filtrada por nome (busca parcial).",
             method = "GET",
             tags = {"Products"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -166,7 +229,6 @@ public interface ProductOpenApi {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "Parâmetro 'name' inválido", content = @Content),
             @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
             @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
@@ -188,7 +250,7 @@ public interface ProductOpenApi {
 
     @Operation(
             summary = "Listar produtos ativos",
-            description = "Retorna uma página de produtos com status ativo, ordenados por nome.",
+            description = "Retorna uma página de produtos com status ativo, ordenados por nome. Endpoint público.",
             method = "GET",
             tags = {"Products"}
     )
@@ -201,8 +263,6 @@ public interface ProductOpenApi {
                             schema = @Schema(implementation = ProductResponse.class)
                     )
             ),
-            @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
-            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     ResponseEntity<Page<ProductResponse>> allProductsActive(
@@ -214,7 +274,7 @@ public interface ProductOpenApi {
 
     @Operation(
             summary = "Buscar produtos ativos por nome (resumo)",
-            description = "Retorna uma lista de resumos de produtos ativos, opcionalmente filtrada por nome.",
+            description = "Retorna uma lista de resumos de produtos ativos, opcionalmente filtrada por nome. Endpoint público.",
             method = "GET",
             tags = {"Products"}
     )
@@ -238,12 +298,9 @@ public interface ProductOpenApi {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "Parâmetro 'name' inválido", content = @Content),
-            @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
-            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    ResponseEntity<List<ProductSummary>> allProductsActive(
+    ResponseEntity<List<ProductSummary>> allProductsActiveSummary(
             @Parameter(
                     name = "name",
                     description = "Filtro parcial pelo nome do produto (opcional)",
@@ -260,6 +317,7 @@ public interface ProductOpenApi {
             method = "GET",
             tags = {"Products"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -269,7 +327,6 @@ public interface ProductOpenApi {
                             schema = @Schema(implementation = ProductSummary.class)
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "Parâmetro 'name' inválido", content = @Content),
             @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
             @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
@@ -287,7 +344,7 @@ public interface ProductOpenApi {
 
     @Operation(
             summary = "Listar produtos por categoria",
-            description = "Retorna uma página de produtos pertencentes a uma categoria específica.",
+            description = "Retorna uma página de produtos pertencentes a uma categoria específica. Endpoint público.",
             method = "GET",
             tags = {"Products"}
     )
@@ -305,8 +362,6 @@ public interface ProductOpenApi {
                     description = "Categoria não encontrada",
                     content = @Content
             ),
-            @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
-            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     ResponseEntity<Page<ProductResponse>> productsByCategory(
@@ -330,6 +385,7 @@ public interface ProductOpenApi {
             method = "PATCH",
             tags = {"Products"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Produto ativado com sucesso"),
             @ApiResponse(responseCode = "400", description = "ID inválido", content = @Content),
@@ -373,6 +429,7 @@ public interface ProductOpenApi {
             method = "PATCH",
             tags = {"Products"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Produto desativado com sucesso"),
             @ApiResponse(responseCode = "400", description = "ID inválido", content = @Content),

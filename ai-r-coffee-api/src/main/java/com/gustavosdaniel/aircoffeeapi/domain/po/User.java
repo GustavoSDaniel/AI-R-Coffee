@@ -9,7 +9,8 @@ public class User extends BaseEntity{
 
     public User(){}
 
-    public User(String userName, UserRole role) {
+    public User(String keycloakId, String userName, UserRole role) {
+        this.keycloakId = keycloakId;
         this.userName = userName;
         this.role = role;
     }

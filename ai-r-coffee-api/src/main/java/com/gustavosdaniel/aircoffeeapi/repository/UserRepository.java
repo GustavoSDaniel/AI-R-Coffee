@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByKeycloakId(String keycloakId);
 
-    @Query("SELECT * FROM users WHERE user_name ILIKE CONCAT('%', :name, '%')")
+    @Query("SELECT u FROM User u WHERE LOWER(u.userName) LIKE LOWER(CONCAT('%', :name, '%'))")
     Page<User> searchByName(String name, Pageable pageable);
 
     Page<User> findAllBy(Pageable pageable);

@@ -6,7 +6,6 @@ import com.gustavosdaniel.aircoffeeapi.domain.dto.response.ProductResponse;
 import com.gustavosdaniel.aircoffeeapi.domain.dto.response.ProductSummary;
 import com.gustavosdaniel.aircoffeeapi.service.ProductService;
 import jakarta.validation.Valid;
-import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +30,7 @@ public class ProductController implements ProductOpenApi {
     }
 
     @PostMapping("/{categoryId}")
-    public ResponseEntity<ProductResponse> crateProduct(
+    public ResponseEntity<ProductResponse> createProduct(
             @Valid @RequestBody ProductRequest request, @PathVariable UUID categoryId
             ){
 
@@ -44,6 +43,14 @@ public class ProductController implements ProductOpenApi {
 
         return ResponseEntity.created(uri).body(response);
 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> findProductById(@PathVariable UUID id){
+
+        ProductResponse response = productService.findProductById(id);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/all")
@@ -70,7 +77,7 @@ public class ProductController implements ProductOpenApi {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ProductSummary>> allProductsActive(
+    public ResponseEntity<List<ProductSummary>> allProductsActiveSummary(
             @RequestParam(required = false) String name
     ){
         List<ProductSummary> responses = productService.searchProductActive(name);

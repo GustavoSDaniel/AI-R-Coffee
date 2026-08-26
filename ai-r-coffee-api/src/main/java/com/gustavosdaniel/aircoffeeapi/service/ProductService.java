@@ -54,6 +54,17 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
+    public ProductResponse findProductById(UUID id){
+
+        log.info("Buscando produto pelo id: {}", id);
+
+        Product product = productRepository.findById(id)
+                .orElseThrow(ProductNotFoundException::new);
+
+        return productMapper.toResponse(product);
+    }
+
+    @Transactional(readOnly = true)
     public Page<ProductResponse> allProducts(String name, Pageable pageable){
 
         log.info("Buscando todos os produtos cadastrados");
