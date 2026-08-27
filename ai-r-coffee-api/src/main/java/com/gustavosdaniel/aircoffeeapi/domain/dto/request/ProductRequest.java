@@ -4,7 +4,6 @@ import com.gustavosdaniel.aircoffeeapi.domain.enums.UnitMeasure;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public record ProductRequest(
 
@@ -15,14 +14,14 @@ public record ProductRequest(
         String description,
 
         @NotNull(message = "A quantidade é obrigatória")
-        @PositiveOrZero(message = "Não é possivel adicionar uma quantidade negativa")
+        @PositiveOrZero(message = "Não é possível adicionar uma quantidade negativa")
         Integer quantity,
 
-        @NotNull(message = "O tipo de unidade é obrigatório ")
+        @NotNull(message = "O tipo de unidade é obrigatório")
         UnitMeasure unitMeasure,
 
         @NotNull(message = "O valor é obrigatório")
-        @Positive(message = "Não é possivel adicionar uma valor negativa, nem zero")
+        @Positive(message = "Não é possível adicionar um valor negativo, nem zero")
         @Digits(integer = 7, fraction = 2)
         BigDecimal price,
 

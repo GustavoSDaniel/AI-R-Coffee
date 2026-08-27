@@ -30,8 +30,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${JWT_ISSUER_URI:http://localhost:7072/realms/ai-r-coffee}
-          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:7072/realms/ai-r-coffee/protocol/openid-connect/certs}
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:7072/auth/realms/ai-r-coffee-realm}
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:7072/auth/realms/ai-r-coffee-realm/protocol/openid-connect/certs}
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

@@ -25,7 +25,7 @@ public class User extends BaseEntity{
     @Column(name = "user_name", nullable = false)
     private String userName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.CONSUMER;
 

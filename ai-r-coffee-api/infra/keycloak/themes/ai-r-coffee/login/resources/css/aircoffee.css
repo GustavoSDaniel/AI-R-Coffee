@@ -1,0 +1,225 @@
+/* ==========================================================================
+   AI/R Coffee — tema de login/cadastro do Keycloak
+   Estende o tema padrão (parent=keycloak) sem reescrever os .ftl.
+   Paleta: marrom torrado, creme, terracota, dourado discreto.
+   ========================================================================== */
+
+/* Fontes da identidade (com fallback local caso o CDN esteja bloqueado) */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --air-bg: #f7f1e7;
+  --air-surface: #fffdf8;
+  --air-surface-warm: #f4ebdc;
+
+  --air-ink: #2b1c12;
+  --air-ink-soft: #6d5a49;
+
+  --air-brown: #4a3226;
+  --air-brown-deep: #2a1a12;
+
+  --air-terracotta: #bf6843;
+  --air-terracotta-deep: #a04f2e;
+
+  --air-gold: #c9a24b;
+  --air-gold-soft: #e3c98a;
+
+  --air-line: #e6dac6;
+  --air-line-strong: #d6c6ac;
+
+  --air-success: #3e7d4f;
+  --air-danger: #b4482e;
+
+  --air-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --air-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* ---------------------------------------------------------------- fundo */
+/* Substitui o keycloak-bg.png escuro por um fundo creme quente. */
+.login-pf body {
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(201, 162, 75, 0.10), transparent 60%),
+    radial-gradient(900px 520px at -10% 110%, rgba(160, 79, 46, 0.10), transparent 55%),
+    var(--air-bg);
+  font-family: var(--air-font-body);
+  color: var(--air-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.login-pf a { color: var(--air-terracotta-deep); }
+.login-pf a:hover { color: var(--air-terracotta); }
+
+/* ---------------------------------------------------------------- cabeçalho / logo */
+#kc-header { color: var(--air-brown-deep); }
+
+#kc-header-wrapper {
+  font-family: var(--air-font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.1;
+  color: var(--air-brown-deep);
+  padding: 76px 10px 16px;
+  /* logo (marca da xícara) acima do wordmark, via CSS — sem mexer no .ftl */
+  background-image: url("../img/logo.svg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 64px 64px;
+}
+
+/* ---------------------------------------------------------------- card */
+.login-pf-page .card-pf {
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 28px 30px 30px;
+  background: var(--air-surface);
+  border: 1px solid var(--air-line);
+  border-top: 4px solid;
+  border-color: var(--air-terracotta);
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(42, 26, 18, 0.05), 0 18px 42px rgba(42, 26, 18, 0.12);
+}
+
+.login-pf-header { margin-bottom: 8px; }
+
+h1#kc-page-title {
+  font-family: var(--air-font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--air-brown-deep);
+  margin-top: 4px;
+}
+
+.subtitle { color: var(--air-ink-soft); }
+.required { color: var(--air-terracotta-deep); }
+
+/* ---------------------------------------------------------------- inputs */
+.pf-c-form-control {
+  font-family: var(--air-font-body);
+  color: var(--air-ink);
+  background-color: var(--air-surface);
+  border-color: var(--air-line-strong);
+  border-radius: 10px;
+}
+.pf-c-form-control:focus {
+  border-color: var(--air-terracotta);
+  box-shadow: 0 0 0 4px rgba(191, 104, 67, 0.14);
+  outline: none;
+}
+.pf-c-form-control::placeholder { color: var(--air-ink-soft); }
+
+.pf-c-form__label,
+.pf-c-form__label-text,
+label {
+  font-family: var(--air-font-body);
+  color: var(--air-brown-deep);
+  font-weight: 500;
+}
+
+/* mensagens de erro de campo */
+.pf-c-form__helper-text.pf-m-error,
+.pf-c-form__helper-text.required {
+  color: var(--air-danger);
+}
+
+/* ---------------------------------------------------------------- botões */
+.pf-c-button.pf-m-primary,
+input[type="submit"].pf-m-primary {
+  font-family: var(--air-font-body);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--air-terracotta), var(--air-terracotta-deep));
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 12px 24px;
+  box-shadow: 0 10px 24px rgba(160, 79, 46, 0.28);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.pf-c-button.pf-m-primary:hover,
+input[type="submit"].pf-m-primary:hover {
+  color: #fff;
+  background: linear-gradient(135deg, var(--air-terracotta), var(--air-terracotta-deep));
+  box-shadow: 0 14px 30px rgba(160, 79, 46, 0.36);
+  transform: translateY(-1px);
+}
+
+/* botões secundários / link */
+.pf-c-button.pf-m-secondary,
+.pf-c-button.pf-m-link,
+.pf-c-button.pf-m-control {
+  font-family: var(--air-font-body);
+  color: var(--air-brown-deep);
+}
+.pf-c-button.pf-m-control { border-color: var(--air-line-strong); }
+
+#kc-form-buttons { margin-top: 24px; }
+
+/* ---------------------------------------------------------------- alertas */
+.pf-c-alert {
+  border-radius: 10px;
+  font-family: var(--air-font-body);
+}
+.pf-c-alert.pf-m-danger { background-color: #fbe9e4; border-color: var(--air-danger); }
+.pf-c-alert.pf-m-warning { background-color: #faf0d9; border-color: var(--air-gold); }
+.pf-c-alert.pf-m-success { background-color: #e7f2ea; border-color: var(--air-success); }
+.pf-c-alert.pf-m-info { background-color: #f4ebdc; border-color: var(--air-brown); }
+.pf-c-alert__title { color: var(--air-brown-deep); font-weight: 600; }
+.pf-c-alert__description { color: var(--air-ink-soft); }
+
+/* ---------------------------------------------------------------- links auxiliares */
+#kc-form-options a,
+#kc-form-options span,
+.login-pf-page .login-pf-signup a { color: var(--air-terracotta-deep); }
+#kc-form-options a:hover,
+.login-pf-page .login-pf-signup a:hover { color: var(--air-terracotta); }
+
+.login-pf-page .login-pf-signup { color: var(--air-ink-soft); font-size: 15px; }
+#kc-registration { color: var(--air-ink-soft); }
+
+/* ---------------------------------------------------------------- área de info */
+#kc-info-wrapper {
+  background-color: var(--air-surface-warm);
+  color: var(--air-ink-soft);
+}
+
+/* ---------------------------------------------------------------- social */
+.kc-social-section hr { border-color: var(--air-line); }
+.kc-social-item {
+  border: 1px solid var(--air-line-strong);
+  border-radius: 999px;
+  color: var(--air-brown-deep);
+}
+
+/* ---------------------------------------------------------------- seleção de autenticador */
+.select-auth-box-parent:hover { background-color: var(--air-surface-warm); }
+.select-auth-box-headline { color: var(--air-terracotta-deep); }
+
+/* ---------------------------------------------------------------- recuperação de códigos */
+.kc-recovery-codes-list { border-color: var(--air-line-strong); }
+
+/* ---------------------------------------------------------------- mobile */
+@media (max-width: 767px) {
+  .login-pf body { background: var(--air-bg); }
+
+  #kc-header-wrapper {
+    font-size: 22px;
+    padding: 70px 10px 12px;
+    background-size: 56px 56px;
+  }
+
+  .login-pf-page .card-pf {
+    max-width: none;
+    margin: 12px 14px;
+    padding: 22px 18px 24px;
+    border-top: 4px solid var(--air-terracotta);
+    border-radius: 14px;
+    box-shadow: 0 8px 26px rgba(42, 26, 18, 0.12);
+  }
+}
+
+/* prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .pf-c-button.pf-m-primary,
+  input[type="submit"].pf-m-primary { transition: none; }
+}

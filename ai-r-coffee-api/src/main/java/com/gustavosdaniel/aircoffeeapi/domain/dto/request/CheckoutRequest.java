@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public record CheckoutRequest(
 
-        @NotEmpty(message = "O carrinho näo pode estar vazio")
+        @NotEmpty(message = "O carrinho não pode estar vazio")
         List<CartItem> items
 ) {
     public record CartItem(

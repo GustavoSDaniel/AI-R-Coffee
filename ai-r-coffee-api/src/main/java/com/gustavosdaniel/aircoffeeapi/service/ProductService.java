@@ -58,7 +58,7 @@ public class ProductService {
 
         log.info("Buscando produto pelo id: {}", id);
 
-        Product product = productRepository.findById(id)
+        Product product = productRepository.findByIdAndActiveTrue(id)
                 .orElseThrow(ProductNotFoundException::new);
 
         return productMapper.toResponse(product);
@@ -97,7 +97,7 @@ public class ProductService {
 
         Category category = getCategoryOrThrow(categoryId);
 
-        Page<Product> products = productRepository.findAllByCategory(category, pageable);
+        Page<Product> products = productRepository.findAllByCategoryAndActiveTrue(category, pageable);
 
         log.info("Total de produtos {} encontrados pela categoria: {}",
                 products.getTotalElements(), category.getName());

@@ -26,6 +26,7 @@ public abstract class BaseEntity {
 
     @PrePersist
     protected void onCreated(){
+
         this.createdAt = OffsetDateTime.now();
         this.updatedAt = OffsetDateTime.now();
     }
@@ -39,7 +40,7 @@ public abstract class BaseEntity {
         if (!this.active) {
 
             throw new BusinessRuleException(
-                    "Não é possivel realizar essa ação pois ele ja encontra desativado");
+                    "Não é possível realizar essa ação pois ele já se encontra desativado");
         }
 
         this.active = false;
@@ -49,7 +50,7 @@ public abstract class BaseEntity {
         if (this.active){
 
             throw new BusinessRuleException(
-                    "Não é possivel realizar essa ação pois ele ja encontra ativada");
+                    "Não é possível realizar essa ação pois ele já se encontra ativado");
         }
         this.active = true;
     }

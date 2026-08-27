@@ -17,12 +17,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - KEYCLOAK_URL=http://keycloak:8080
       - KEYCLOAK_REALM=${KEYCLOAK_REALM}
-      - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
-      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:7072/realms/${KEYCLOAK_REALM}
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak:8080/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
+      - JWT_ISSUER_URI=http://localhost:7072/auth/realms/${KEYCLOAK_REALM}
+      - JWT_JWK_SET_URI=http://keycloak:8080/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - FRONTEND_URL=${FRONTEND_URL}
       - API_CORS_ALLOWED_ORIGINS=${API_CORS_ALLOWED_ORIGINS}
@@ -40,7 +37,7 @@ services:
     ports:
       - "7071:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     networks:
       - ai-coffee-network
     healthcheck:
@@ -63,6 +60,9 @@ services:
       KC_DB_USERNAME: ${KEYCLOAK_DB_USER}
       KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
       KC_HTTP_ENABLED: "true"
+      KC_HTTP_RELATIVE_PATH: /auth
+    volumes:
+      - ./infra/keycloak/themes:/opt/keycloak/themes
     ports:
       - "7072:8080"
     depends_on:
@@ -80,7 +80,7 @@ services:
       POSTGRES_USER: ${KEYCLOAK_DB_USER}
       POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
     volumes:
-      - postgres_keycloak_data:/var/lib/postgresql/data
+      - postgres_keycloak_data:/var/lib/postgresql
     networks:
       - ai-coffee-network
     healthcheck:

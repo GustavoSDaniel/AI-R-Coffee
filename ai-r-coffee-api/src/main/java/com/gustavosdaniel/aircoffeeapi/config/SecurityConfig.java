@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -40,7 +41,7 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .cors(Customizer.withDefaults())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
@@ -49,8 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(PUBLIC_URLS).permitAll()
 
                         //user
-
-                        .requestMatchers(HttpMethod.GET, "/api/v1/users/me").hasAnyRole("ADMIN", "CONSUMER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/users/me").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/email").hasRole("ADMIN")
                         .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
 
@@ -60,6 +60,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/categories/**").hasRole("ADMIN")
 
                         //product
+                        .requestMatchers(HttpMethod.GET, "/api/v1/products/all").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/products/inactive").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/active").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/search").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/*/category-product").permitAll()
@@ -80,7 +82,10 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource(
-            @Value("${API_CORS_ALLOWED_ORIGINS}") String allowedOrigins) {
+            @Value("${API_CORS_ALLOWED_ORIGINS}") String allowedOrigins
+    ) {
+
+        if (allowedOrigins == null) allowedOrigins = "";
 
         CorsConfiguration configuration = new CorsConfiguration();
 

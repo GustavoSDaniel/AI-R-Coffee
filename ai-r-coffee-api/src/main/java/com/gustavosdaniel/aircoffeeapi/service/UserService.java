@@ -55,7 +55,7 @@ public class UserService {
                             keycloakId, email, username, roleFromToken
                     );
 
-                    log.info("Usuario criado com sucesso");
+                    log.info("Usuário criado com sucesso");
 
                     return userRepository.save(newUser);
                 });
@@ -95,7 +95,7 @@ public class UserService {
 
         Page<User> users = userRepository.searchByName(searchName, pageable);
 
-        log.info("Total de {}, usúarios encontrados", users.getTotalElements());
+        log.info("Total de {}, usuários encontrados", users.getTotalElements());
 
         return users.map(userMapper::toResponse);
     }

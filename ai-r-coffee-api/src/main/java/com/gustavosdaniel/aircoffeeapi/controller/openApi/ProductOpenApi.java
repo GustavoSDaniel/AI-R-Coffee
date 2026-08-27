@@ -53,8 +53,10 @@ public interface ProductOpenApi {
                         "id": "98765432-1234-5678-9012-345678901234",
                         "name": "Café Expresso",
                         "description": "Café curto e intenso",
+                        "quantity": 100,
+                        "unitMeasure": "UN",
                         "price": 5.90,
-                        "active": true,
+                        "imageUrl": "https://exemplo.com/cafe-expresso.jpg",
                         "categoryId": "123e4567-e89b-12d3-a456-426614174000"
                     }
                     """
@@ -139,8 +141,10 @@ public interface ProductOpenApi {
                         "id": "98765432-1234-5678-9012-345678901234",
                         "name": "Café Expresso",
                         "description": "Café curto e intenso",
+                        "quantity": 100,
+                        "unitMeasure": "UN",
                         "price": 5.90,
-                        "active": true,
+                        "imageUrl": "https://exemplo.com/cafe-expresso.jpg",
                         "categoryId": "123e4567-e89b-12d3-a456-426614174000"
                     }
                     """
@@ -202,8 +206,10 @@ public interface ProductOpenApi {
                                 "id": "98765432-1234-5678-9012-345678901234",
                                 "name": "Café Expresso",
                                 "description": "Café curto e intenso",
+                                "quantity": 100,
+                                "unitMeasure": "UN",
                                 "price": 5.90,
-                                "active": true,
+                                "imageUrl": "https://exemplo.com/cafe-expresso.jpg",
                                 "categoryId": "123e4567-e89b-12d3-a456-426614174000"
                             }
                         ],
@@ -291,7 +297,7 @@ public interface ProductOpenApi {
                         {
                             "id": "98765432-1234-5678-9012-345678901234",
                             "name": "Café Expresso",
-                            "price": 5.90
+                            "imageUrl": "https://exemplo.com/cafe-expresso.jpg"
                         }
                     ]
                     """

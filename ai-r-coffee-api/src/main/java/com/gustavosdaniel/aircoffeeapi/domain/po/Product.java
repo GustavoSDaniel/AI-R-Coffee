@@ -1,7 +1,6 @@
 package com.gustavosdaniel.aircoffeeapi.domain.po;
 
 import com.gustavosdaniel.aircoffeeapi.domain.enums.UnitMeasure;
-import com.gustavosdaniel.aircoffeeapi.exception.BusinessRuleException;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -31,7 +30,7 @@ public class Product extends BaseEntity{
     @Column(nullable = false)
     private Integer quantity;
 
-    @Column(name = "unit_measure", nullable = false)
+    @Column(name = "unit_measure", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private UnitMeasure unitMeasure;
 
@@ -44,20 +43,6 @@ public class Product extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-
-    public void addQuantity(int amount){
-
-        this.quantity += amount;
-    }
-
-    public void removeQuantity(int amount){
-
-        if (amount > this.quantity){
-            throw new BusinessRuleException("Estoque insuficiente para realizar esta operação");
-        }
-
-        this.quantity -= amount;
-    }
 
     public String getName() {
         return name;

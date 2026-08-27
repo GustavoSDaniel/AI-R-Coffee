@@ -71,10 +71,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NameExistException.class)
     public ResponseEntity<ProblemDetail> handleNameExist(NameExistException exception){
 
-        log.warn("O nome inserido já esta em uso {}", exception.getMessage());
+        log.warn("O nome inserido já está em uso {}", exception.getMessage());
 
         return buildResponse(
-                HttpStatus.BAD_REQUEST,
+                HttpStatus.CONFLICT,
                 ProblemType.NAME_EXIST,
                 exception.getMessage()
         );
@@ -95,7 +95,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ProblemDetail> handleProductNotFound(ProductNotFoundException exception){
 
-        log.warn("Produto não encontrada {}", exception.getMessage());
+        log.warn("Produto não encontrado {}", exception.getMessage());
 
         return buildResponse(
                 HttpStatus.NOT_FOUND,
@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ProblemDetail> handleUserNotFound(UserNotFoundException exception){
 
-        log.warn("Usuário não encontrada {}", exception.getMessage());
+        log.warn("Usuário não encontrado {}", exception.getMessage());
 
         return buildResponse(
                 HttpStatus.NOT_FOUND,

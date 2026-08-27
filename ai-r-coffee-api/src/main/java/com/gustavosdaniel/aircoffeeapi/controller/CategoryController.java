@@ -5,7 +5,6 @@ import com.gustavosdaniel.aircoffeeapi.domain.dto.request.CategoryRequest;
 import com.gustavosdaniel.aircoffeeapi.domain.dto.response.CategoryResponse;
 import com.gustavosdaniel.aircoffeeapi.service.CategoryService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

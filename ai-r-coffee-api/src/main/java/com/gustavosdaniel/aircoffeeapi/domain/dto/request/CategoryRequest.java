@@ -7,7 +7,7 @@ public record CategoryRequest(
         @NotBlank(message = "O nome da categoria não pode estar vazio")
         String name,
 
-        @NotBlank(message = "A descrição da categoria não pode estar vazio")
+        @NotBlank(message = "A descrição da categoria não pode estar vazia")
         String description) {
 
     public CategoryRequest {

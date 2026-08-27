@@ -1,7 +1,5 @@
 package com.gustavosdaniel.aircoffeeapi.domain.enums;
 
-import com.gustavosdaniel.aircoffeeapi.exception.BusinessRuleException;
-
 public enum UnitMeasure {
 
     UN("UNIDADE"),
@@ -18,17 +16,5 @@ public enum UnitMeasure {
 
     UnitMeasure(String description) {
         this.description = description;
-    }
-
-    public static UnitMeasure fromCode(String code) {
-        if (code == null) {
-            throw new BusinessRuleException("Unidade não pode ser nula");
-        }
-
-        try {
-            return UnitMeasure.valueOf(code.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new BusinessRuleException("Unidade de medida inválida: '" + code + "'");
-        }
     }
 }

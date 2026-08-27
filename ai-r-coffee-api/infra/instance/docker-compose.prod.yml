@@ -17,12 +17,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - KEYCLOAK_URL=http://keycloak:8080
       - KEYCLOAK_REALM=${KEYCLOAK_REALM}
-      - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
-      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/${KEYCLOAK_REALM}
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak:8080/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
+      - JWT_ISSUER_URI=http://keycloak:8080/auth/realms/${KEYCLOAK_REALM}
+      - JWT_JWK_SET_URI=http://keycloak:8080/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - FRONTEND_URL=${FRONTEND_URL}
       - API_CORS_ALLOWED_ORIGINS=${API_CORS_ALLOWED_ORIGINS}
@@ -37,10 +34,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "7071:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     networks:
       - ai-coffee-network
     healthcheck:
@@ -53,7 +48,7 @@ services:
     image: quay.io/keycloak/keycloak:26.0
     container_name: keycloak-ai-coffee
     restart: unless-stopped
-    command: start-dev
+    command: start
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
@@ -64,8 +59,10 @@ services:
       KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
       KC_HTTP_ENABLED: "true"
       KC_HTTP_RELATIVE_PATH: /auth
-    ports:
-      - "7072:8080"
+      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME: api.ai-r-coffe.gustavosdaniel.com
+    volumes:
+      - ../keycloak/themes:/opt/keycloak/themes
     depends_on:
       postgres-keycloak:
         condition: service_healthy
@@ -81,7 +78,7 @@ services:
       POSTGRES_USER: ${KEYCLOAK_DB_USER}
       POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
     volumes:
-      - postgres_keycloak_data:/var/lib/postgresql/data
+      - postgres_keycloak_data:/var/lib/postgresql
     networks:
       - ai-coffee-network
     healthcheck:
@@ -106,15 +103,6 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
     networks:
       - ai-coffee-network
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://localhost/health || exit 1" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    deploy:
-      resources:
-        limits:
-          memory: 50M
 
 volumes:
   postgres_data:

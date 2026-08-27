@@ -46,7 +46,7 @@ public interface CategoryOpenApi {
                     {
                         "id": "123e4567-e89b-12d3-a456-426614174000",
                         "name": "Bebidas Quentes",
-                        "active": true
+                        "description": "Cafés, chás e chocolate quente"
                     }
                     """
                             )
@@ -112,10 +112,11 @@ public interface CategoryOpenApi {
 
     @Operation(
             summary = "Listar todas as categorias (inclui inativas)",
-            description = "Retorna todas as categorias cadastradas, opcionalmente filtradas por nome (busca parcial, case-insensitive). Endpoint público.",
+            description = "Retorna todas as categorias cadastradas, opcionalmente filtradas por nome (busca parcial, case-insensitive). Exclusivo para administradores.",
             method = "GET",
             tags = {"Categories"}
     )
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -130,18 +131,20 @@ public interface CategoryOpenApi {
                         {
                             "id": "123e4567-e89b-12d3-a456-426614174000",
                             "name": "Bebidas Quentes",
-                            "active": true
+                            "description": "Cafés, chás e chocolate quente"
                         },
                         {
                             "id": "123e4567-e89b-12d3-a456-426614174001",
                             "name": "Bebidas Geladas",
-                            "active": false
+                            "description": "Bebidas geladas e refrescantes"
                         }
                     ]
                     """
                             )
                     )
             ),
+            @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     ResponseEntity<List<CategoryResponse>> allCategoryByName(
@@ -175,7 +178,7 @@ public interface CategoryOpenApi {
                         {
                             "id": "123e4567-e89b-12d3-a456-426614174000",
                             "name": "Bebidas Quentes",
-                            "active": true
+                            "description": "Cafés, chás e chocolate quente"
                         }
                     ]
                     """
@@ -216,7 +219,7 @@ public interface CategoryOpenApi {
                         {
                             "id": "123e4567-e89b-12d3-a456-426614174001",
                             "name": "Bebidas Geladas",
-                            "active": false
+                            "description": "Bebidas geladas e refrescantes"
                         }
                     ]
                     """

@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -38,8 +39,10 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
         """)
     List<Product> searchInactiveByName(@Param("name") String name);
 
-    Page<Product> findAllByCategory(Category category, Pageable pageable);
-    
+    Page<Product> findAllByCategoryAndActiveTrue(Category category, Pageable pageable);
+
     Page<Product> findByActiveTrue(Pageable pageable);
+
+    Optional<Product> findByIdAndActiveTrue(UUID id);
 
 }

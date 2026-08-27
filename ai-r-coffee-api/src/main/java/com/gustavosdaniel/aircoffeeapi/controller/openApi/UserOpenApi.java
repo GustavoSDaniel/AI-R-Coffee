@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.UUID;
 
 @Tag(name = "Users", description = "Endpoints para gerenciamento de usuários e perfis")
-@SecurityRequirement(name = "bearerAuth") // Aplica o cadeado de segurança em todos os métodos da interface
+@SecurityRequirement(name = "bearerAuth")
 public interface UserOpenApi {
 
     @Operation(
@@ -44,11 +44,9 @@ public interface UserOpenApi {
                                     value = """
                                     {
                                         "id": "123e4567-e89b-12d3-a456-426614174000",
-                                        "keycloakId": "auth-uuid-9999",
                                         "email": "gustavosdaniel@hotmail.com",
                                         "userName": "gustavosdaniel",
-                                        "role": "ADMIN",
-                                        "active": true
+                                        "role": "ADMIN"
                                     }
                                     """
                             )
