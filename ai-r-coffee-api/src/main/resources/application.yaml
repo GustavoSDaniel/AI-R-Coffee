@@ -35,3 +35,7 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY}
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}

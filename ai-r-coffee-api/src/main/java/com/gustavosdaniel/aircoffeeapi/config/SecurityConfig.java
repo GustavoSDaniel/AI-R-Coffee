@@ -1,6 +1,7 @@
 package com.gustavosdaniel.aircoffeeapi.config;
 
 import jakarta.servlet.DispatcherType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +66,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/*").permitAll()
                         .requestMatchers("/api/v1/products/**").hasRole("ADMIN")
 
+                        //checkout
+                        .requestMatchers(HttpMethod.POST, "/api/v1/checkout/session").authenticated()
+
 
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
@@ -74,12 +79,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource(
+            @Value("${API_CORS_ALLOWED_ORIGINS}") String allowedOrigins) {
+
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:3000",
-                "https://SEU-PROJETO.vercel.app"
-        ));
+
+        configuration.setAllowedOrigins(
+                Arrays.stream(allowedOrigins.split(","))
+                        .map(String::trim)
+                        .filter(origin -> !origin.isBlank())
+                        .toList()
+        );
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
 
