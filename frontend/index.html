@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AI/R Coffee — café, acessórios e brindes. Grãos de origem, torra artesanal e entrega na sua porta." />
+  <title>AI/R Coffee · Café, acessórios e brindes</title>
+
+  <script>
+    // Aplica o tema antes do primeiro paint (evita "flash" de tema errado).
+    // Chave compartilhada com js/theme.js: escolha explícita > preferência do sistema.
+    (function () {
+      try {
+        var saved = localStorage.getItem('aircoffee.theme');
+        var theme = saved === 'dark' || saved === 'light'
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { /* localStorage indisponível; segue o tema claro padrão */ }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Tipografia: serif expressiva (títulos) + sans limpa (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#app">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#/" aria-label="AI/R Coffee — início">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="30" height="30" fill="none">
+            <path d="M9 12c0-3 2-5 5-5s5 2 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M15 7V4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            <rect x="8" y="16" width="14" height="2.4" rx="1.2" fill="currentColor" />
+            <path d="M8.4 17.6h13.2L19.7 28a2.6 2.6 0 0 1-2.5 2h-4.4a2.6 2.6 0 0 1-2.5-2z" fill="currentColor" />
+            <path d="M17 15.6h4.2a3 3 0 0 1 3 3v.4a3 3 0 0 1-3 3H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="brand-text"><span class="brand-name">AI<span class="brand-slash">/</span><span class="brand-r">R</span> Coffee</span><small>café · acessórios · brindes</small></span>
+      </a>
+
+      <div class="header-actions">
+        <a class="cart-link" href="#/carrinho" aria-label="Abrir carrinho">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
+            <path d="M4 6h2l2.4 11.2a1 1 0 0 0 1 .8h7.4a1 1 0 0 0 1-.8L19.5 8H7.5"
+              stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="10.5" cy="21" r="1.3" fill="currentColor" />
+            <circle cx="16.5" cy="21" r="1.3" fill="currentColor" />
+          </svg>
+          <span class="cart-badge" id="cart-count" hidden>0</span>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Alternar entre tema claro e escuro" title="Alternar tema">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+            <path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+            <path d="M20.5 13.5A8.2 8.2 0 0 1 10.5 3.5a8.2 8.2 0 1 0 10 10z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="auth-area" id="auth-area"></div>
+      </div>
+    </div>
+
+    <nav class="category-nav" id="category-nav" aria-label="Categorias de produtos"></nav>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="brand-text brand-text--footer"><span class="brand-name">AI<span class="brand-slash">/</span><span class="brand-r">R</span> Coffee</span><small>café · acessórios · brindes</small></span>
+      <p>Café, acessórios e brindes — curadoria de origem, torra artesanal e entrega na sua porta.</p>
+      <p class="footer-fine">© <span id="year"></span> AI/R Coffee. Feito com café e paciência.</p>
+    </div>
+  </footer>
+
+  <!-- Adapter oficial keycloak-js via CDN. Fixado na v25 (UMD): a v26 é ESM-only
+       e não expõe o global `Keycloak` num <script> clássico (dist/ foi removido). -->
+  <script src="https://cdn.jsdelivr.net/npm/keycloak-js@25.0.6/dist/keycloak.min.js"></script>
+
+  <!-- Módulos do app (scripts clássicos, sem bundler — ordem importa) -->
+  <script src="config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Pagamento aprovado · AI/R Coffee</title>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('aircoffee.theme');
+        var theme = saved === 'dark' || saved === 'light'
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { /* sem storage */ }
+    })();
+  </script>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body class="return-page">
+  <main class="return-card">
+    <span class="return-icon return-icon--ok" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="none">
+        <path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </span>
+    <h1>Pedido confirmado!</h1>
+    <p>Seu pagamento foi aprovado. Obrigado por escolher a AI/R Coffee — em breve seu café chega fresquinho na sua porta.</p>
+    <p class="return-meta" id="session-id"></p>
+    <a class="btn btn--solid" href="../index.html#/">Voltar para a loja</a>
+  </main>
+
+  <script src="../config.js"></script>
+  <script src="../js/cart.js"></script>
+  <script>
+    (function () {
+      var sid = new URLSearchParams(window.location.search).get('session_id');
+      if (sid) {
+        document.getElementById('session-id').textContent = 'Sessão: ' + sid;
+        // Pagamento concluído: esvazia o carrinho salvo no navegador.
+        window.Cart.clear();
+      }
+    })();
+  </script>
+</body>
+</html>
