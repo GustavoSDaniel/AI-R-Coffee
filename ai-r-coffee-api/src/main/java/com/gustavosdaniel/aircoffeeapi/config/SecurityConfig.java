@@ -46,25 +46,23 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(PUBLIC_URLS).permitAll()
 
+                        //user
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/users/me").hasAnyRole("ADMIN", "CONSUMER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/users/email").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
+
+
                         //category
-                        .requestMatchers(HttpMethod.POST, "/api/v1/categories").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/all").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/categories/active").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/inactive").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/categories/*/activate").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/categories/*/disable").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/categories/**").hasRole("ADMIN")
 
                         //product
-                        .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/products/all").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/products/inactive").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/active").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/search").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/*/category-product").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/products/*/activate").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/products/*/disable").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/products/**").hasAnyRole("ADMIN", "CONSUMER")
+                        .requestMatchers("/api/v1/products/**").hasRole("ADMIN")
 
 
                         .anyRequest().authenticated())

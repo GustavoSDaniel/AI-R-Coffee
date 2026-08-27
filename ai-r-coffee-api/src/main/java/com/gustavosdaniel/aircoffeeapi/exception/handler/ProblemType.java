@@ -29,6 +29,11 @@ public enum ProblemType {
     PRODUCT_NOT_FOUND(
             "urn:ai-r-coffee:product-not-found",
             "Produto não encontrado"
+    ),
+
+    USER_NOT_FOUND(
+            "urn:ai-r-coffee:user-not-found",
+            "Usuário não encontrado"
     );
 
     private final URI uri;

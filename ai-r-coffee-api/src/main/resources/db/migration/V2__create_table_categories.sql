@@ -8,4 +8,5 @@ CREATE TABLE categories (
 
 );
 
+CREATE INDEX idx_categories_name_lower ON categories(LOWER(name));
 CREATE INDEX idx_categories_active ON categories(active) WHERE active = TRUE;

@@ -9,14 +9,18 @@ public class User extends BaseEntity{
 
     public User(){}
 
-    public User(String keycloakId, String userName, UserRole role) {
+    public User(String keycloakId, String email, String userName, UserRole role) {
         this.keycloakId = keycloakId;
+        this.email = email;
         this.userName = userName;
         this.role = role;
     }
 
-    @Column(name = "keycloak_id", nullable = false)
+    @Column(name = "keycloak_id", nullable = false, unique = true)
     private String keycloakId;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -27,6 +31,14 @@ public class User extends BaseEntity{
 
     public String getKeycloakId() {
         return keycloakId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUserName() {

@@ -1,8 +1,6 @@
 package com.gustavosdaniel.aircoffeeapi.exception.handler;
 
-import com.gustavosdaniel.aircoffeeapi.exception.BusinessRuleException;
-import com.gustavosdaniel.aircoffeeapi.exception.CategoryNotFoundException;
-import com.gustavosdaniel.aircoffeeapi.exception.NameExistException;
+import com.gustavosdaniel.aircoffeeapi.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -90,6 +88,30 @@ public class GlobalExceptionHandler {
         return buildResponse(
                 HttpStatus.NOT_FOUND,
                 ProblemType.CATEGORY_NOT_FOUND,
+                exception.getMessage()
+        );
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleProductNotFound(ProductNotFoundException exception){
+
+        log.warn("Produto não encontrada {}", exception.getMessage());
+
+        return buildResponse(
+                HttpStatus.NOT_FOUND,
+                ProblemType.PRODUCT_NOT_FOUND,
+                exception.getMessage()
+        );
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleUserNotFound(UserNotFoundException exception){
+
+        log.warn("Usuário não encontrada {}", exception.getMessage());
+
+        return buildResponse(
+                HttpStatus.NOT_FOUND,
+                ProblemType.USER_NOT_FOUND,
                 exception.getMessage()
         );
     }

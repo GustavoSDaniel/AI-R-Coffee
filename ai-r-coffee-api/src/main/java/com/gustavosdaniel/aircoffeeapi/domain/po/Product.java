@@ -25,7 +25,7 @@ public class Product extends BaseEntity{
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)
@@ -35,7 +35,7 @@ public class Product extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private UnitMeasure unitMeasure;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column(name ="image_url", nullable = false)

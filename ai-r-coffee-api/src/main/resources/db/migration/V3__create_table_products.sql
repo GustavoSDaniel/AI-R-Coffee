@@ -14,4 +14,5 @@ CREATE TABLE products (
 );
 
 CREATE INDEX idx_products_category_id ON products(category_id);
-CREATE INDEX idx_products_active      ON products(active) WHERE active = TRUE;
+CREATE INDEX idx_products_active ON products(active) WHERE active = TRUE;
+CREATE INDEX idx_products_name_lower ON products(LOWER(name));
