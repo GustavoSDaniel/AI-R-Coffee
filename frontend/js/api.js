@@ -62,18 +62,16 @@ window.Api = (() => {
   return {
     ApiError,
 
-    //Uma página de produtos ativos (resposta Page do Spring Data). 
 
     getActivePage(page = 0, size = window.CONFIG.pageSize, sort = 'name,asc') {
       return request(`/products/active?page=${page}&size=${size}&sort=${encodeURIComponent(sort)}`);
     },
 
-    // Percorre todas as páginas de produtos ativos e retorna um array plano
 
     async getAllActiveProducts() {
       const items = [];
 
-      // Busca principal: API Spring Boot (fonte de verdade — o checkout depende dela)
+      
       try {
         const size = 50;
         let page = 0;
@@ -88,8 +86,7 @@ window.Api = (() => {
         console.warn('[api] Backend offline. Usando catálogo estático local.', err);
       }
 
-      // Fallback: products.json só entra se a API não trouxer nada (evita duplicar
-      // itens mock que não existem no banco e quebrariam o checkout).
+      
       if (items.length === 0) {
         try {
           const response = await fetch('products.json');

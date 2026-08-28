@@ -388,6 +388,23 @@ p { margin: 0; }
 }
 .card-add:hover { background: var(--terracotta); transform: translateY(-1px); }
 
+/* ---------------------------------------------------------------- paginação */
+.pagination {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  margin-top: 28px;
+}
+.pagination-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 9px 18px; border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface); color: var(--heading);
+  font-family: inherit; font-weight: 600; font-size: 0.9rem;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+.pagination-btn:hover:not(:disabled) { background: var(--surface-warm); border-color: var(--brown); transform: translateY(-1px); }
+.pagination-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.pagination-info { color: var(--ink-soft); font-size: 0.9rem; }
+
 /* ---------------------------------------------------------------- detalhe */
 .breadcrumb { margin-bottom: 20px; }
 .breadcrumb a { color: var(--ink-soft); font-size: 0.88rem; }
