@@ -519,8 +519,14 @@ p { margin: 0; }
 .footer-inner p { color: rgba(255, 253, 248, 0.72); max-width: 52ch; }
 .footer-fine { font-size: 0.8rem; color: rgba(255, 253, 248, 0.5); }
 
-/* "Como Fiz" no header: texto no desktop, só ícone no mobile */
-.howto-icon { display: none; }
+/* link "Como Fiz" no footer — visível só no mobile */
+.howto-footer {
+  display: none;
+  align-self: flex-start;
+  align-items: center; gap: 6px;
+  color: var(--gold-soft); font-size: 0.9rem; font-weight: 500;
+}
+.howto-footer:hover { color: var(--gold); text-decoration: underline; }
 
 /* ---------------------------------------------------------------- páginas de retorno (Stripe) */
 .return-page {
@@ -561,12 +567,12 @@ p { margin: 0; }
 
 /* cabeçalho: compacta itens secundários em telas estreitas para não vazar da tela */
 @media (max-width: 640px) {
-  .howto-label { display: none; }
-  .howto-icon { display: block; }
-  .howto-link { padding: 8px 10px; }
+  .howto-link { display: none; }
+  .howto-footer { display: inline-flex; }
   .site-header .brand-text small { display: none; }
   .auth-long { display: none; }
-  .site-header .auth-user { max-width: 84px; }
+  .site-header .auth-hi { display: none; }
+  .site-header .auth-user { max-width: 72px; }
 }
 
 /* cabeçalho compacto em telas estreitas */

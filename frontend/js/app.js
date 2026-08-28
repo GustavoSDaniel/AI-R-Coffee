@@ -80,7 +80,7 @@
     if (!el) return;
     if (Auth.isAuthenticated()) {
       el.innerHTML = `
-        <span class="auth-user">Olá, <strong>${Utils.escapeHtml(Auth.userLabel())}</strong></span>
+        <span class="auth-user"><span class="auth-hi">Olá, </span><strong>${Utils.escapeHtml(Auth.userLabel())}</strong></span>
         <button class="btn btn--ghost btn--sm" id="logout-btn" type="button">Sair</button>`;
       el.querySelector('#logout-btn').addEventListener('click', () => Auth.logout());
     } else {
