@@ -118,7 +118,7 @@
         <div class="hero-inner">
           <span class="hero-kicker">Café · acessórios · brindes</span>
           <h1 class="hero-title">Café de origem, <em>torrado com calma</em>.</h1>
-          <p class="hero-subtitle">Grãos de origem, torra artesanal, acessórios para o seu ritual e brindes — tudo com entrega na sua porta. Sem pressa, sem atalhos.</p>
+          <p class="hero-subtitle">Grãos de origem, torra artesanal, acessórios para o seu ritual e brindes tudo com entrega na sua porta. Sem pressa, sem atalhos.</p>
           <div class="hero-cta">
             <button class="btn btn--solid btn--lg" id="hero-cta" type="button">Ver o catálogo</button>
             <a class="btn btn--ghost btn--lg" href="#/carrinho">Ir ao carrinho</a>

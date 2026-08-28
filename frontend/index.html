@@ -14,7 +14,7 @@
           ? saved
           : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) { /* localStorage indisponível; segue o tema claro padrão */ }
+      } catch (e) { }
     })();
   </script>
 
@@ -79,7 +79,7 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="brand-text brand-text--footer"><span class="brand-name">AI<span class="brand-slash">/</span><span class="brand-r">R</span> Coffee</span><small>café · acessórios · brindes</small></span>
-      <p>Café, acessórios e brindes — curadoria de origem, torra artesanal e entrega na sua porta.</p>
+      <p>Café, acessórios e brindes curadoria de origem, torra artesanal e entrega na sua porta.</p>
       <p class="footer-fine">© <span id="year"></span> AI/R Coffee. Feito com café e paciência.</p>
     </div>
   </footer>
