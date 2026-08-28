@@ -72,21 +72,8 @@ window.Api = (() => {
 
     async getAllActiveProducts() {
       const items = [];
-      
-      
-      try {
-        const response = await fetch('products.json');
-        if (response.ok) {
-          const localData = await response.json();
-          if (localData && localData.content) {
-            items.push(...localData.content);
-          }
-        }
-      } catch (err) {
-        console.warn('[api] products.json local não encontrado.', err);
-      }
-      
-      //  Busca da API Spring Boot
+
+      // Busca principal: API Spring Boot (fonte de verdade — o checkout depende dela)
       try {
         const size = 50;
         let page = 0;
@@ -98,17 +85,30 @@ window.Api = (() => {
           page += 1;
         }
       } catch (err) {
-        console.warn('[api] Backend offline. Exibindo apenas o catálogo estático.', err);
+        console.warn('[api] Backend offline. Usando catálogo estático local.', err);
       }
-      
-      // Remove duplicatas e mescla
-      const uniqueItems = Array.from(new Map(items.map(item => [item.id, item])).values());
-      
-      if (uniqueItems.length === 0) {
+
+      // Fallback: products.json só entra se a API não trouxer nada (evita duplicar
+      // itens mock que não existem no banco e quebrariam o checkout).
+      if (items.length === 0) {
+        try {
+          const response = await fetch('products.json');
+          if (response.ok) {
+            const localData = await response.json();
+            if (localData && localData.content) {
+              items.push(...localData.content);
+            }
+          }
+        } catch (err) {
+          console.warn('[api] products.json local não encontrado.', err);
+        }
+      }
+
+      if (items.length === 0) {
         throw new ApiError('Não foi possível carregar o catálogo de nenhuma fonte.', 0);
       }
-      
-      return uniqueItems;
+
+      return items;
     },
 
     getProduct(id) {
