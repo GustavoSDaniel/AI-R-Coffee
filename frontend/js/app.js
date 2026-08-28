@@ -7,9 +7,11 @@
     categories: [],
     categoryById: {},
     products: [],
-    catalogState: 'idle', 
+    catalogState: 'idle',
     searchTerm: '',
-    sortBy: 'name-asc'
+    sortBy: 'name-asc',
+    page: 0,
+    pageSize: window.CONFIG.pageSize || 12
   });
 
   // helpers
@@ -112,6 +114,7 @@
   // vitrine 
   async function renderHome(app) {
     const catId = parseHash().params.get('categoria') || null;
+    App.page = 0;
 
     app.innerHTML = `
       <section class="hero">
@@ -157,6 +160,7 @@
         </div>
 
         <div id="grid-root"></div>
+        <nav class="pagination" id="pagination-root" aria-label="Paginação"></nav>
       </section>`;
 
     const searchInput = app.querySelector('#search-input');
@@ -170,6 +174,7 @@
 
     searchInput.addEventListener('input', (e) => {
       App.searchTerm = e.target.value;
+      App.page = 0;
       renderGrid(app, catId);
       handleSuggest(e.target.value, app);
     });
@@ -181,6 +186,7 @@
 
     sortSelect.addEventListener('change', (e) => {
       App.sortBy = e.target.value;
+      App.page = 0;
       renderGrid(app, catId);
     });
 
@@ -192,6 +198,15 @@
         Cart.add(product, 1);
         Utils.toast(`“${product.name}” adicionado ao carrinho.`, 'success');
       }
+    });
+
+    app.querySelector('#pagination-root').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-page]');
+      if (!btn || btn.disabled) return;
+      App.page = Number(btn.dataset.page);
+      renderGrid(app, catId);
+      const top = document.getElementById('catalogo');
+      if (top) top.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     await ensureProducts(app);
@@ -222,16 +237,19 @@
 
   function renderGrid(app, catId) {
     const root = app.querySelector('#grid-root');
+    const pagRoot = app.querySelector('#pagination-root');
     const count = app.querySelector('#catalog-count');
     const title = app.querySelector('#catalog-title');
     if (!root) return;
 
     if (App.catalogState === 'loading') {
       root.innerHTML = spinnerHtml();
+      if (pagRoot) pagRoot.innerHTML = '';
       if (count) count.textContent = '';
       return;
     }
     if (App.catalogState === 'error') {
+      if (pagRoot) pagRoot.innerHTML = '';
       if (count) count.textContent = '';
       return;
     }
@@ -242,11 +260,18 @@
     if (term) list = list.filter((p) => Utils.normalize(p.name).includes(term));
     list = sortProducts(list, App.sortBy);
 
+    const total = list.length;
+    const totalPages = Math.max(1, Math.ceil(total / App.pageSize));
+    if (App.page >= totalPages) App.page = totalPages - 1;
+    if (App.page < 0) App.page = 0;
+    const start = App.page * App.pageSize;
+    const pageItems = list.slice(start, start + App.pageSize);
+
     const catName = catId && App.categoryById[catId] ? App.categoryById[catId].name : 'Catálogo';
     if (title) title.textContent = catName;
-    if (count) count.textContent = `${list.length} ${list.length === 1 ? 'produto' : 'produtos'}`;
+    if (count) count.textContent = `${total} ${total === 1 ? 'produto' : 'produtos'}`;
 
-    if (!list.length) {
+    if (!total) {
       const isFiltered = term || catId;
       root.innerHTML = emptyHtml(
         isFiltered ? 'Nenhum produto encontrado' : 'Catálogo em preparo',
@@ -257,10 +282,24 @@
       );
       const clearBtn = root.querySelector('#clear-filters');
       if (clearBtn) clearBtn.addEventListener('click', () => { App.searchTerm = ''; location.hash = '/'; });
+      if (pagRoot) pagRoot.innerHTML = '';
       return;
     }
 
-    root.innerHTML = `<div class="grid">${list.map(productCardHtml).join('')}</div>`;
+    root.innerHTML = `<div class="grid">${pageItems.map(productCardHtml).join('')}</div>`;
+    renderPagination(pagRoot, App.page, totalPages);
+  }
+
+  function renderPagination(root, page, totalPages) {
+    if (!root) return;
+    if (totalPages <= 1) {
+      root.innerHTML = '';
+      return;
+    }
+    root.innerHTML = `
+      <button class="pagination-btn" type="button" data-page="${page - 1}" ${page === 0 ? 'disabled' : ''} aria-label="Página anterior">Anterior</button>
+      <span class="pagination-info">Página ${page + 1} de ${totalPages}</span>
+      <button class="pagination-btn" type="button" data-page="${page + 1}" ${page >= totalPages - 1 ? 'disabled' : ''} aria-label="Próxima página">Próxima</button>`;
   }
 
   function productCardHtml(product) {
