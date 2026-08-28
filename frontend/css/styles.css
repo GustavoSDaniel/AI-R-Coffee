@@ -519,6 +519,9 @@ p { margin: 0; }
 .footer-inner p { color: rgba(255, 253, 248, 0.72); max-width: 52ch; }
 .footer-fine { font-size: 0.8rem; color: rgba(255, 253, 248, 0.5); }
 
+/* "Como Fiz" no header: texto no desktop, só ícone no mobile */
+.howto-icon { display: none; }
+
 /* ---------------------------------------------------------------- páginas de retorno (Stripe) */
 .return-page {
   min-height: 100vh; display: grid; place-items: center; padding: 24px;
@@ -556,6 +559,16 @@ p { margin: 0; }
   .cart-item-media { width: 96px; height: 96px; }
 }
 
+/* cabeçalho: compacta itens secundários em telas estreitas para não vazar da tela */
+@media (max-width: 640px) {
+  .howto-label { display: none; }
+  .howto-icon { display: block; }
+  .howto-link { padding: 8px 10px; }
+  .site-header .brand-text small { display: none; }
+  .auth-long { display: none; }
+  .site-header .auth-user { max-width: 84px; }
+}
+
 /* cabeçalho compacto em telas estreitas */
 @media (max-width: 480px) {
   .header-inner { padding: 0 14px; gap: 10px; }
@@ -564,6 +577,7 @@ p { margin: 0; }
   .brand-mark { width: 36px; height: 36px; }
   .brand-text { font-size: 1.15rem; }
   .cart-link, .theme-toggle { width: 38px; height: 38px; }
+  .header-actions .btn--sm { padding: 8px 12px; }
 }
 
 /* botão ghost sobre o hero escuro */

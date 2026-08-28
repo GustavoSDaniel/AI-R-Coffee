@@ -84,7 +84,7 @@
         <button class="btn btn--ghost btn--sm" id="logout-btn" type="button">Sair</button>`;
       el.querySelector('#logout-btn').addEventListener('click', () => Auth.logout());
     } else {
-      el.innerHTML = `<button class="btn btn--solid btn--sm" id="login-btn" type="button">Entrar / Cadastrar</button>`;
+      el.innerHTML = `<button class="btn btn--solid btn--sm" id="login-btn" type="button">Entrar<span class="auth-long"> / Cadastrar</span></button>`;
       el.querySelector('#login-btn').addEventListener('click', () => Auth.login(location.hash || '#/'));
     }
   }
