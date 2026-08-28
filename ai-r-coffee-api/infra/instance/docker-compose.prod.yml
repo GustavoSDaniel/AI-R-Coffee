@@ -1,6 +1,6 @@
 services:
   ai-r-coffee-api:
-    build: .
+    image: gustavosdaniel/ai-r-coffee-api:latest
     container_name: ai-r-coffee-api
     restart: unless-stopped
     ports:
@@ -18,7 +18,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - KEYCLOAK_REALM=${KEYCLOAK_REALM}
-      - JWT_ISSUER_URI=http://keycloak:8080/auth/realms/${KEYCLOAK_REALM}
+      - JWT_ISSUER_URI=https://api.ai-r-coffee.gustavosdaniel.com/auth/realms/${KEYCLOAK_REALM}
       - JWT_JWK_SET_URI=http://keycloak:8080/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - FRONTEND_URL=${FRONTEND_URL}
@@ -60,7 +60,7 @@ services:
       KC_HTTP_ENABLED: "true"
       KC_HTTP_RELATIVE_PATH: /auth
       KC_PROXY_HEADERS: xforwarded
-      KC_HOSTNAME: api.ai-r-coffe.gustavosdaniel.com
+      KC_HOSTNAME: api.ai-r-coffee.gustavosdaniel.com
     volumes:
       - ../keycloak/themes:/opt/keycloak/themes
     depends_on:
