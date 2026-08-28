@@ -1,0 +1,11 @@
+{
+  "content": [
+    { "id": "1", "categoryId": "cafes-gourmet", "name": "Cappuccino de Avelã", "description": "Equilíbrio perfeito entre café, leite vaporizado, muita espuma e um toque artesanal de xarope de avelã.", "quantity": 40, "unitMeasure": "UNIDADE", "price": 16.50, "imageUrl": "assets/img/img1.jpg", "active": true },
+    { "id": "2", "categoryId": "cafes-gourmet", "name": "Flat White Australiano", "description": "Para quem ama café forte. Microespuma de leite aveludada sobre um ristretto duplo.", "quantity": 30, "unitMeasure": "UNIDADE", "price": 15.90, "imageUrl": "assets/img/img2.jpg", "active": true },
+    { "id": "3", "categoryId": "cafes-gourmet", "name": "Cold Brew Artesanal", "description": "Café extraído a frio por 18 horas. Refrescante, menos ácido e com notas intensas de chocolate amargo.", "quantity": 25, "unitMeasure": "UNIDADE", "price": 18.00, "imageUrl": "assets/img/img3.jpg", "active": true },
+    { "id": "4", "categoryId": "cafes-gourmet", "name": "Mocha Chocolate Belga", "description": "A união dos deuses: espresso, leite cremoso e generosas raspas de autêntico chocolate belga.", "quantity": 35, "unitMeasure": "UNIDADE", "price": 19.90, "imageUrl": "assets/img/img4.jpg", "active": true },
+    { "id": "5", "categoryId": "cafes-gourmet", "name": "Latte Caramelo Salgado", "description": "O doce do caramelo encontra a complexidade do sal marinho num latte aveludado e reconfortante.", "quantity": 45, "unitMeasure": "UNIDADE", "price": 17.50, "imageUrl": "assets/img/img5.jpg", "active": true },
+    { "id": "6", "categoryId": "cafes-gourmet", "name": "Affogato com Baunilha", "description": "A sobremesa perfeita. Uma bola de sorvete de baunilha artesanal 'afogada' num shot quente de espresso.", "quantity": 15, "unitMeasure": "UNIDADE", "price": 22.00, "imageUrl": "assets/img/img6.jpg", "active": true }
+  ],
+  "last": true
+}

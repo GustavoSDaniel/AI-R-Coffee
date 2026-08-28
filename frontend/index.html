@@ -7,8 +7,6 @@
   <title>AI/R Coffee · Café, acessórios e brindes</title>
 
   <script>
-    // Aplica o tema antes do primeiro paint (evita "flash" de tema errado).
-    // Chave compartilhada com js/theme.js: escolha explícita > preferência do sistema.
     (function () {
       try {
         var saved = localStorage.getItem('aircoffee.theme');
@@ -22,7 +20,6 @@
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
-  <!-- Tipografia: serif expressiva (títulos) + sans limpa (corpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -51,6 +48,7 @@
       </a>
 
       <div class="header-actions">
+        <a class="btn btn--ghost btn--sm" href="como-fiz.html" style="margin-right: 8px;">Como Fiz (Vídeo)</a>
         <a class="cart-link" href="#/carrinho" aria-label="Abrir carrinho">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
             <path d="M4 6h2l2.4 11.2a1 1 0 0 0 1 .8h7.4a1 1 0 0 0 1-.8L19.5 8H7.5"
@@ -86,11 +84,9 @@
     </div>
   </footer>
 
-  <!-- Adapter oficial keycloak-js via CDN. Fixado na v25 (UMD): a v26 é ESM-only
-       e não expõe o global `Keycloak` num <script> clássico (dist/ foi removido). -->
+  
   <script src="https://cdn.jsdelivr.net/npm/keycloak-js@25.0.6/dist/keycloak.min.js"></script>
 
-  <!-- Módulos do app (scripts clássicos, sem bundler — ordem importa) -->
   <script src="config.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/cart.js"></script>

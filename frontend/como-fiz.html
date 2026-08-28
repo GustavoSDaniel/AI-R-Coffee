@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Como Fiz · AI/R Coffee</title>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('aircoffee.theme');
+        var theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .video-container { max-width: 900px; margin: 40px auto; background: var(--surface); padding: 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--line); }
+    .video-container video { width: 100%; border-radius: var(--radius); background: var(--surface-warm); }
+    .diagram-container { margin-top: 40px; text-align: center; }
+    .diagram-container img { max-width: 100%; border-radius: var(--radius); border: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-text"><span class="brand-name">AI<span class="brand-slash">/</span><span class="brand-r">R</span> Coffee</span><small>voltar para a loja</small></span>
+      </a>
+      <div class="header-actions">
+        <a class="btn btn--solid btn--sm" href="index.html">Ver a Loja</a>
+      </div>
+    </div>
+  </header>
+  <main class="container section">
+    <div class="section-head">
+      <h1 class="section-title" style="font-size: clamp(2rem, 5vw, 3rem);">Como fiz: AI/R Coffee</h1>
+    </div>
+    <div class="video-container">
+      <video src="assets/videos/apresentacao.mp4" controls preload="metadata">
+        Seu navegador não suporta a tag de vídeo.
+      </video>
+      <div class="diagram-container">
+        <h2 style="font-family: var(--font-display); color: var(--heading); margin-bottom: 16px;">Arquitetura BFF (Bônus)</h2>
+        <p style="color: var(--ink-soft); margin-bottom: 16px;">Desenho de onde entraria um Backend for Frontend caso a loja ganhasse um app mobile.</p>
+        <img src="assets/img/arquitetura-bff.png" alt="Diagrama de Arquitetura mostrando o BFF" />
+      </div>
+    </div>
+  </main>
+</body>
+</html>

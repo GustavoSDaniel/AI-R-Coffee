@@ -335,7 +335,17 @@
     const root = app.querySelector('#detail-root');
     root.innerHTML = spinnerHtml();
     try {
-      const product = await Api.getProduct(id);
+      // Garante o catálogo carregado (cobre deep-link direto a #/produto/...).
+      await ensureProducts(app);
+
+      // Usa primeiro o produto já carregado (estático do products.json ou da API).
+      let product = App.products.find((p) => String(p.id) === String(id));
+
+      // Fallback: produto do backend não presente no catálogo paginado.
+      if (!product) {
+        product = await Api.getProduct(id);
+      }
+
       renderDetail(root, product);
     } catch (err) {
       root.innerHTML = `
