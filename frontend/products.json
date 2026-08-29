@@ -2,7 +2,7 @@
   "content": [
     { 
       "id": "1", 
-      "categoryId": "cafes-gourmet", 
+      "categoryId": "cb258b4a-993c-4698-8d8d-8f5ca73794e1", 
       "name": "Cappuccino de Avelã", 
       "description": "Equilíbrio perfeito entre café, leite vaporizado, muita espuma e um toque artesanal de xarope de avelã.", 
       "quantity": 40, 
@@ -13,7 +13,7 @@
     },
     { 
       "id": "2", 
-      "categoryId": "cafes-gourmet", 
+      "categoryId": "cb258b4a-993c-4698-8d8d-8f5ca73794e1", 
       "name": "Flat White Australiano", 
       "description": "Para quem ama café forte. Microespuma de leite aveludada sobre um ristretto duplo.", "quantity": 30, 
       "unitMeasure": "UNIDADE", 
@@ -23,7 +23,7 @@
     },
     { 
       "id": "3", 
-      "categoryId": "cafes-gourmet", 
+      "categoryId": "cb258b4a-993c-4698-8d8d-8f5ca73794e1", 
       "name": "Cold Brew Artesanal", 
       "description": "Café extraído a frio por 18 horas. Refrescante, menos ácido e com notas intensas de chocolate amargo.", 
       "quantity": 25, 
@@ -34,7 +34,7 @@
     },
     { 
       "id": "4", 
-      "categoryId": "cafes-gourmet", 
+      "categoryId": "cb258b4a-993c-4698-8d8d-8f5ca73794e1", 
       "name": "Mocha Chocolate Belga", 
       "description": "A união dos deuses: espresso, leite cremoso e generosas raspas de autêntico chocolate belga.", 
       "quantity": 35, 
@@ -45,7 +45,7 @@
     },
     { 
       "id": "5", 
-      "categoryId": "cafes-gourmet", 
+      "categoryId": "cb258b4a-993c-4698-8d8d-8f5ca73794e1", 
       "name": "Latte Caramelo Salgado", 
       "description": "O doce do caramelo encontra a complexidade do sal marinho num latte aveludado e reconfortante.", 
       "quantity": 45, 
@@ -56,7 +56,7 @@
     },
     { 
       "id": "6", 
-      "categoryId": "cafes-gourmet", 
+      "categoryId": "cb258b4a-993c-4698-8d8d-8f5ca73794e1", 
       "name": "Affogato com Baunilha", 
       "description": "A sobremesa perfeita. Uma bola de sorvete de baunilha artesanal 'afogada' num shot quente de espresso.", 
       "quantity": 15, 
