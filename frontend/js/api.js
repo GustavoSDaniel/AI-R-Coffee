@@ -91,7 +91,6 @@ window.Api = (() => {
         }
       };
 
-      // Backend (melhor esforço), com timeout curto para não travar a vitrine.
       const backendPromise = (async () => {
         const out = [];
         const size = 50;
