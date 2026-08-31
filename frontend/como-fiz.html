@@ -39,14 +39,19 @@
       <h1 class="section-title" style="font-size: clamp(2rem, 5vw, 3rem);">Como fiz: AI/R Coffee</h1>
     </div>
     <div class="video-container">
-      <video src="assets/videos/apresentacao.mp4" controls preload="metadata">
+      <video id="meuVideo" src="assets/videos/apresentacao.mp4" controls preload="metadata">
         Seu navegador não suporta a tag de vídeo.
       </video>
+      <div style="margin-top: 16px; display: flex; gap: 8px; justify-content: center; align-items: center;">
+        <span style="color: var(--ink-soft); font-size: 0.9rem;">Velocidade do Video:</span>
+        <button class="btn btn--sm" onclick="document.getElementById('meuVideo').playbackRate = 1">1x</button>
+        <button class="btn btn--sm" onclick="document.getElementById('meuVideo').playbackRate = 1.5">1.5x</button>
+        <button class="btn btn--sm" onclick="document.getElementById('meuVideo').playbackRate = 2">2x</button>
+      </div>
       <div class="diagram-container">
         <h2 style="font-family: var(--font-display); color: var(--heading); margin-bottom: 16px;">Arquitetura BFF </h2>
         <p style="color: var(--ink-soft); margin-bottom: 16px;">Desenho de onde entraria um Backend for Frontend caso a loja ganhasse um app mobile.</p>
         
-        <!-- Extensão alterada para .jpg -->
         <img src="assets/img/arquitetura-bff.jpg" alt="Diagrama de Arquitetura mostrando o BFF atuando entre o front-end e a API principal" />
       </div>
     </div>
